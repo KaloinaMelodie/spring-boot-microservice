@@ -1,0 +1,16 @@
+meta {
+  name: liste competence
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{urlcompetence}}/skills
+  body: none
+  auth: inherit
+}
+
+docs {
+  GET /skills avec port du service
+  liste des competences avec postes correspondant
+}

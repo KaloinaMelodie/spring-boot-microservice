@@ -1,0 +1,16 @@
+meta {
+  name: liste poste
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{urlposte}}/postes
+  body: none
+  auth: inherit
+}
+
+docs {
+  GET /postes avec port du service
+  liste des postes avec competences
+}

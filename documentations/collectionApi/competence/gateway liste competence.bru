@@ -1,0 +1,16 @@
+meta {
+  name: gateway liste competence
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{urlgateway}}/COMPETENCE/skills
+  body: none
+  auth: inherit
+}
+
+docs {
+  GET /skills avec port du gateway
+  liste des competences avec postes correspondant
+}

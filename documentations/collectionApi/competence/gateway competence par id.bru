@@ -1,0 +1,16 @@
+meta {
+  name: gateway competence par id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{urlgateway}}/COMPETENCE/skill/1
+  body: none
+  auth: inherit
+}
+
+docs {
+  GET /skill/{id} avec port du gateway
+  le competence avec postes correspondant
+}

@@ -1,0 +1,16 @@
+meta {
+  name: gateway poste par id
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{urlgateway}}/POSTE/poste/CTO
+  body: none
+  auth: inherit
+}
+
+docs {
+  GET /poste/{id} avec port du gateway
+  le post avec competences
+}
