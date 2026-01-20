@@ -101,6 +101,16 @@ Composants principaux :
 
 Toutes les requêtes clientes transitent par l’API Gateway, qui effectue le routage de manière dynamique grâce à la découverte de services.
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="images/image.png" width="600">
+      <br>
+      <sub>Project architecture / Architecture du projet</sub>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## Code Organization
