@@ -1,0 +1,80 @@
+version: '3.9'
+
+services:
+  config:
+    build: ./config
+    container_name: config
+    ports:
+      - "9999:9999"
+    volumes:
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      - GIT_SSH_COMMAND=ssh -i /root/.ssh/spring_config_rsa -o StrictHostKeyChecking=no
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9999/actuator/health"]
+      interval: 5s
+      retries: 3
+    networks:
+      - backend
+
+  discovery:
+    build: ./discovery
+    container_name: discovery
+    ports:
+      - "8761:8761"
+    environment:
+      - CONFIG_SERVICE_URL=http://config:9999
+    depends_on:
+      - config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 5s
+      retries: 3
+    networks:
+      - backend
+
+  gateway:
+    build: ./gateway
+    container_name: gateway
+    ports:
+      - "8888:8888"
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery:8761/eureka
+      - CONFIG_SERVICE_URL=http://config:9999
+    depends_on:
+      - discovery
+      - config
+    networks:
+      - backend
+
+  poste:
+    build: ./poste
+    container_name: poste
+    ports:
+      - "8080:8080"
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery:8761/eureka
+      - CONFIG_SERVICE_URL=http://config:9999
+    depends_on:
+      - discovery
+      - config
+    networks:
+      - backend
+
+  skill:
+    build: ./skill
+    container_name: skill
+    ports:
+      - "8081:8081"
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery:8761/eureka
+      - CONFIG_SERVICE_URL=http://config:9999
+    depends_on:
+      - discovery
+      - config
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
